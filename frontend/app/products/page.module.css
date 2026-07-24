@@ -1,0 +1,243 @@
+.products {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 30px 20px 80px 20px;
+}
+
+/* Shop Banner Header */
+.shopBanner {
+  border-radius: 16px;
+  overflow: hidden;
+  margin-bottom: 32px;
+  border: 1px solid var(--border);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+  background: #ffffff;
+}
+
+.bannerBackground {
+  height: 220px;
+  background: linear-gradient(135deg, #e4e7eb 0%, #cbd5e1 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.bannerTitle {
+  font-size: 5.5rem;
+  font-weight: 900;
+  color: #ffffff;
+  text-transform: uppercase;
+  letter-spacing: 6px;
+  margin: 0;
+  text-shadow: 0 4px 30px rgba(15, 17, 21, 0.05);
+}
+
+.bannerFooter {
+  padding: 20px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid var(--border);
+}
+
+.bannerSubtitle {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--foreground);
+  margin: 0;
+  letter-spacing: -0.5px;
+}
+
+/* Integrated Search Bar inside Banner */
+.searchWrapper {
+  display: flex;
+  align-items: center;
+  background: #f3f4f6;
+  border: 1px solid var(--border);
+  border-radius: 30px;
+  padding: 4px 4px 4px 18px;
+  width: 100%;
+  max-width: 400px;
+  transition: border-color 0.2s ease;
+}
+
+.searchWrapper:focus-within {
+  border-color: #9ca3af;
+}
+
+.searchInput {
+  background: transparent;
+  border: none;
+  outline: none;
+  font-size: 0.88rem;
+  color: var(--foreground);
+  width: 100%;
+}
+
+.searchBtn {
+  background: #0f1115;
+  color: #ffffff;
+  border: none;
+  border-radius: 20px;
+  padding: 8px 20px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.searchBtn:hover {
+  background: #23272f;
+}
+
+/* Two-Column Layout */
+.mainLayout {
+  display: flex;
+  gap: 32px;
+}
+
+.filterRow {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.filterField {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+  max-width: 320px;
+}
+
+.filterLabel {
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--text-muted);
+  font-weight: 700;
+}
+
+.categorySelect {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  background: #ffffff;
+  color: var(--foreground);
+  font-size: 0.95rem;
+  appearance: none;
+}
+
+/* Deprecated sidebar styles are removed for a cleaner layout */
+
+.accordionHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  font-size: 0.88rem;
+  font-weight: 750;
+  color: var(--foreground);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 4px 0;
+}
+
+/* Right Content Grid */
+.contentGrid {
+  flex-grow: 1;
+}
+
+.metaRow {
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.resultsCount {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+/* Products Grid */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 columns on desktop */
+  gap: 24px;
+}
+
+/* No Results State */
+.noResults {
+  text-align: center;
+  padding: 80px 20px;
+  border: 1px dashed var(--border);
+  border-radius: 16px;
+  background: #ffffff;
+}
+
+.noResults h3 {
+  font-size: 1.25rem;
+  color: var(--foreground);
+  margin-bottom: 6px;
+}
+
+.noResults p {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+}
+
+/* Responsive Breakpoints */
+@media (max-width: 990px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr); /* 2 columns on small desktop/tablets */
+  }
+}
+
+@media (max-width: 768px) {
+  .products {
+    padding-top: 16px;
+  }
+
+  .bannerBackground {
+    height: 140px;
+  }
+
+  .bannerTitle {
+    font-size: 3.5rem;
+  }
+
+  .bannerFooter {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 14px;
+    padding: 16px;
+  }
+
+  .searchWrapper {
+    max-width: 100%;
+  }
+
+  .mainLayout {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .filterRow {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .categorySelect {
+    width: 100%;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}

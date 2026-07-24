@@ -1,0 +1,209 @@
+@keyframes cardEntry {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.card {
+  background: var(--card-bg);
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  animation: cardEntry 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.06);
+}
+
+.imageWrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  background: #f0f1f4;
+  padding: 16px;
+}
+
+.image {
+  object-fit: contain;
+  padding: 12px;
+  transition: transform 0.3s ease;
+}
+
+.card:hover .image {
+  transform: scale(1.05);
+}
+
+.cardCategory {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  color: #0f1115;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.2px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  z-index: 2;
+  border: 1px solid rgba(0, 0, 0, 0.02);
+}
+
+.content {
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  gap: 8px;
+}
+
+.titleLink {
+  text-decoration: none;
+}
+
+.content h3 {
+  font-size: 1rem;
+  font-weight: 750;
+  color: var(--foreground);
+  line-height: 1.35;
+  margin: 0;
+}
+
+.content h3:hover {
+  color: var(--accent);
+}
+
+.rating {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.82rem;
+}
+
+.stars {
+  color: #f59e0b; /* Gold Amber */
+  font-weight: 700;
+}
+
+.reviewsCount {
+  color: var(--text-muted);
+}
+
+.priceRow {
+  display: flex;
+  gap: 8px;
+  align-items: baseline;
+  margin-top: 2px;
+}
+
+.sale {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--foreground);
+}
+
+.regular {
+  text-decoration: line-through;
+  color: var(--text-muted);
+  font-size: 0.88rem;
+}
+
+.buttonGroup {
+  display: flex;
+  gap: 8px;
+  margin-top: auto;
+  padding-top: 12px;
+}
+
+.addToCartBtn {
+  flex: 1;
+  padding: 10px;
+  background: #ffffff;
+  border: 1.5px solid var(--border);
+  color: var(--foreground);
+  font-weight: 700;
+  font-size: 0.82rem;
+  border-radius: 24px;
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease;
+  white-space: nowrap;
+}
+
+.addToCartBtn:hover {
+  background: #f9fafb;
+  border-color: #cbd5e1;
+}
+
+.buyBtnWrapper {
+  flex: 1;
+}
+
+/* Override BuyButton component class styling directly */
+.buyBtnWrapper button {
+  width: 100% !important;
+  padding: 10px 14px !important;
+  background: #0f1115 !important;
+  color: #ffffff !important;
+  border-radius: 24px !important;
+  font-size: 0.82rem !important;
+  font-weight: 700 !important;
+  border: none !important;
+  box-shadow: none !important;
+  cursor: pointer !important;
+  transition: background 0.2s ease !important;
+  white-space: nowrap !important;
+}
+
+.buyBtnWrapper button:hover:enabled {
+  background: #23272f !important;
+  transform: none !important;
+}
+
+@media (max-width: 768px) {
+  .content {
+    padding: 12px;
+    gap: 6px;
+  }
+
+  .content h3 {
+    font-size: 0.9rem;
+  }
+
+  .rating {
+    font-size: 0.76rem;
+  }
+
+  .sale {
+    font-size: 1rem;
+  }
+
+  .regular {
+    font-size: 0.8rem;
+  }
+
+  .buttonGroup {
+    flex-direction: column;
+    gap: 6px;
+    padding-top: 8px;
+  }
+
+  .addToCartBtn,
+  .buyBtnWrapper button {
+    font-size: 0.78rem !important;
+    padding: 8px 10px !important;
+  }
+}

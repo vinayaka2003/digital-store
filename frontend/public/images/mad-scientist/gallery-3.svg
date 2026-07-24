@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1600" viewBox="0 0 1600 1600" preserveAspectRatio="xMidYMid meet">
+  <defs>
+    <linearGradient id="g" x1="0" x2="1">
+      <stop offset="0%" stop-color="#f3f4f6" />
+      <stop offset="100%" stop-color="#e6eef6" />
+    </linearGradient>
+    <style>
+      .txt{font-family:Inter, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; fill:#0f1724; font-weight:700}
+      .sub{font-size:36px; fill:#6b7280; font-weight:600}
+    </style>
+  </defs>
+
+  <rect width="100%" height="100%" fill="url(#g)" />
+
+  <g transform="translate(800 760)" text-anchor="middle">
+    <text class="txt" font-size="72">Mad Scientist</text>
+    <text class="sub" y="64">Gallery Placeholder</text>
+  </g>
+</svg>

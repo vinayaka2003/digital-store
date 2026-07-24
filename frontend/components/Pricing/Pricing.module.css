@@ -1,0 +1,116 @@
+.section {
+  padding: 100px 20px;
+  background: var(--card-bg);
+}
+
+.container {
+  max-width: 600px;
+  margin: auto;
+  text-align: center;
+}
+
+.badge {
+  display: inline-block;
+  background: #ffffff;
+  color: #0f1115;
+  padding: 6px 16px;
+  border-radius: 999px;
+  font-weight: 750;
+  font-size: 0.82rem;
+  border: 1px solid var(--border);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+}
+
+.container h2 {
+  margin-top: 24px;
+  font-size: 42px;
+  font-weight: 850;
+  color: var(--foreground);
+  letter-spacing: -1px;
+}
+
+.container > p {
+  margin: 16px auto 50px;
+  color: var(--text-muted);
+  font-size: 1.05rem;
+}
+
+.card {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 45px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.03);
+  border: 1.5px solid var(--border);
+}
+
+.discount {
+  display: inline-block;
+  background: #000000;
+  color: #ffffff;
+  padding: 6px 16px;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 0.85rem;
+  margin-bottom: 20px;
+}
+
+.price {
+  margin: 24px 0;
+}
+
+.sale {
+  font-size: 54px;
+  font-weight: 900;
+  color: var(--foreground);
+}
+
+.old {
+  margin-left: 15px;
+  text-decoration: line-through;
+  color: var(--text-muted);
+  font-size: 22px;
+}
+
+.list {
+  text-align: left;
+  margin: 36px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  list-style: none;
+}
+
+.button {
+  display: block;
+  text-decoration: none;
+  background: #0f1115;
+  color: white;
+  padding: 18px;
+  border-radius: 30px;
+  font-weight: 700;
+  transition: background 0.2s ease;
+}
+
+.button:hover {
+  background: #23272f;
+}
+
+.note {
+  margin-top: 20px;
+  color: var(--text-muted);
+  font-size: 14px;
+}
+
+@media (max-width: 768px) {
+  .container h2 {
+    font-size: 32px;
+  }
+
+  .sale {
+    font-size: 42px;
+  }
+
+  .card {
+    padding: 30px;
+  }
+}

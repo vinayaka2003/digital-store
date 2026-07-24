@@ -1,0 +1,30 @@
+.section {
+  margin: 4rem 0;
+}
+
+.section h2 {
+  margin-bottom: 2rem;
+}
+
+.item {
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  margin-bottom: 1rem;
+  overflow: hidden;
+}
+
+.question {
+  width: 100%;
+  padding: 1rem 1.5rem;
+  text-align: left;
+  background: white;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.answer {
+  padding: 0 1.5rem 1rem;
+  color: #6b7280;
+  line-height: 1.7;
+}
