@@ -1,6 +1,7 @@
 {
   "name": "digital-store-backend",
   "version": "1.0.0",
+  "type": "module",
   "main": "server.js",
   "scripts": {
     "dev": "node --watch server.js",

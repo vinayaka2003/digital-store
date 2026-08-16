@@ -8,7 +8,7 @@ export default function ProductFeatures({ product }) {
       <div className={styles.grid}>
         {product.details.features.map((feature) => (
           <div key={feature} className={styles.card}>
-            <span>✅</span>
+            <span>✓</span>
             <p>{feature}</p>
           </div>
         ))}

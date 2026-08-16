@@ -5,12 +5,14 @@ import Link from "next/link";
 import Image from "next/image";
 import { getActiveProducts } from "@/lib/products";
 import { showToast } from "@/lib/utils";
+import CheckoutModal from "@/components/CheckoutModal/CheckoutModal";
 import styles from "./page.module.css";
 
 export default function CartPage() {
   const [cartItems, setCartItems] = useState([]);
   const [isMounted, setIsMounted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const products = getActiveProducts();
 
   useEffect(() => {
@@ -89,12 +91,16 @@ export default function CartPage() {
     });
   };
 
-  async function handleCheckout() {
+  function handleCheckout() {
     if (cartProducts.length === 0) {
       console.log("Checkout aborted: cart is empty");
       return;
     }
+    setIsModalOpen(true);
+  }
 
+  async function handleCheckoutSubmit(buyerData) {
+    setIsModalOpen(false);
     try {
       setLoading(true);
       console.log("Starting checkout process. Cart items:", cartItems);
@@ -106,31 +112,21 @@ export default function CartPage() {
         return;
       }
 
-      const phoneInput = window.prompt(
-        "Enter your bank-linked phone number for UPI payment (10 digits):",
-        ""
-      );
-
-      if (phoneInput === null) {
-        alert("Phone number is required to continue.");
-        return;
-      }
-
-      const contact = phoneInput.replace(/\D/g, "");
-
-      if (!/^\d{10}$/.test(contact)) {
-        alert("Please enter a valid 10-digit phone number.");
-        return;
-      }
-
       console.log("Creating Razorpay order on backend...");
+      const useExpress = process.env.NEXT_PUBLIC_USE_EXPRESS === "true";
       const BACKEND = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:4000";
-      const response = await fetch(`${BACKEND}/api/create-order`, {
+      const createOrderUrl = useExpress ? `${BACKEND}/api/create-order` : "/api/razorpay/create-order";
+      const verifyPaymentUrl = useExpress ? `${BACKEND}/api/verify-payment` : "/api/razorpay/verify-payment";
+
+      const response = await fetch(createOrderUrl, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           items: cartItems.map((item) => ({ slug: item.slug, quantity: item.quantity })),
-          contact,
+          contact: buyerData.contact,
+          name: buyerData.name,
+          email: buyerData.email,
+          whatsapp: buyerData.whatsapp,
         }),
       });
 
@@ -160,14 +156,13 @@ export default function CartPage() {
         },
         handler: async function (response) {
           try {
-            const BACKEND = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:4000";
-            const verifyResponse = await fetch(`${BACKEND}/api/verify-payment`, {
+            const verifyResponse = await fetch(verifyPaymentUrl, {
               method: "POST",
               headers: { "Content-Type": "application/json" },
               body: JSON.stringify({
                 ...response,
                 slugs: cartItems.map((item) => item.slug),
-                contact,
+                contact: buyerData.contact,
               }),
             });
 
@@ -183,7 +178,16 @@ export default function CartPage() {
             localStorage.setItem("cart_count", "0");
             window.dispatchEvent(new Event("cart-update"));
 
-            window.location.href = `/success?paymentId=${response.razorpay_payment_id}&token=${result.token}`;
+            // Redirect using new token map if available
+            let successRedirectUrl = `/success?paymentId=${response.razorpay_payment_id}`;
+            if (result.tokens && result.tokens.length > 0) {
+              const tokensStr = result.tokens.map((t) => `${t.slug}:${t.rawToken}`).join(",");
+              successRedirectUrl += `&tokens=${tokensStr}`;
+            } else if (result.token) {
+              successRedirectUrl += `&token=${result.token}`;
+            }
+
+            window.location.href = successRedirectUrl;
           } catch (error) {
             console.error(error);
             alert("Payment verification failed.");
@@ -195,9 +199,9 @@ export default function CartPage() {
           },
         },
         prefill: {
-          name: "",
-          email: "",
-          contact,
+          name: buyerData.name,
+          email: buyerData.email,
+          contact: buyerData.contact,
         },
       };
 
@@ -227,7 +231,9 @@ export default function CartPage() {
 
       {cartProducts.length === 0 ? (
         <div className={styles.emptyCart}>
-          <div className={styles.emptyIcon}>🛍️</div>
+          <div className={styles.emptyIcon}>
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+          </div>
           <h2>Your cart is empty</h2>
           <p>Explore our premium digital assets to fill it up.</p>
           <Link href="/products" className={styles.shopBtn}>
@@ -323,11 +329,17 @@ export default function CartPage() {
             </button>
 
             <p className={styles.securityText}>
-              🔒 Secure checkout powered by Razorpay. Files will be available for instant download immediately after verification.
+              Secure checkout powered by Razorpay. Files will be available for instant download immediately after verification.
             </p>
           </div>
         </div>
       )}
+      <CheckoutModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onSubmit={handleCheckoutSubmit}
+        totalAmount={total}
+      />
     </main>
   );
 }

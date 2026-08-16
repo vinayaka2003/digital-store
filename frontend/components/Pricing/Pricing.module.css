@@ -11,8 +11,8 @@
 
 .badge {
   display: inline-block;
-  background: #ffffff;
-  color: #0f1115;
+  background: var(--card-hover-bg);
+  color: var(--foreground);
   padding: 6px 16px;
   border-radius: 999px;
   font-weight: 750;
@@ -36,7 +36,7 @@
 }
 
 .card {
-  background: #ffffff;
+  background: var(--card-bg);
   border-radius: 20px;
   padding: 45px;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.03);
@@ -45,8 +45,8 @@
 
 .discount {
   display: inline-block;
-  background: #000000;
-  color: #ffffff;
+  background: var(--primary);
+  color: var(--background);
   padding: 6px 16px;
   border-radius: 999px;
   font-weight: 700;
@@ -83,8 +83,8 @@
 .button {
   display: block;
   text-decoration: none;
-  background: #0f1115;
-  color: white;
+  background: var(--primary);
+  color: var(--background);
   padding: 18px;
   border-radius: 30px;
   font-weight: 700;
@@ -92,7 +92,7 @@
 }
 
 .button:hover {
-  background: #23272f;
+  background: var(--primary-weak);
 }
 
 .note {

@@ -32,11 +32,11 @@ export default function Pricing() {
           </div>
 
           <ul className={styles.list}>
-            <li>✅ 1500+ HD Videos</li>
-            <li>✅ No Watermark</li>
-            <li>✅ Instant Download</li>
-            <li>✅ Secure Razorpay Payment</li>
-            <li>✅ Lifetime Access</li>
+            <li>✓ 1500+ HD Videos</li>
+            <li>✓ No Watermark</li>
+            <li>✓ Instant Download</li>
+            <li>✓ Secure Razorpay Payment</li>
+            <li>✓ Lifetime Access</li>
           </ul>
 
           <Link
@@ -47,7 +47,7 @@ export default function Pricing() {
           </Link>
 
           <p className={styles.note}>
-            🔒 Payments secured by Razorpay
+            Payments secured by Razorpay
           </p>
         </div>
       </div>

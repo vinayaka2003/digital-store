@@ -127,7 +127,7 @@ export default function Testimonials() {
   return (
     <section className={styles.section}>
       <div className={styles.container}>
-        <span className={styles.badge}>❤️ What Customers Say</span>
+        <span className={styles.badge}>What Customers Say</span>
 
         <h2>Trusted by 1000+ Creators</h2>
 
@@ -164,7 +164,7 @@ export default function Testimonials() {
               <p className={styles.text}>&ldquo;{t.text}&rdquo;</p>
 
               <div className={styles.productTag}>
-                📦 {t.product}
+                {t.product}
               </div>
             </div>
           ))}

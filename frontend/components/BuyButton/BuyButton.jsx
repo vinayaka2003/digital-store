@@ -1,12 +1,15 @@
 "use client";
 
 import { useState } from "react";
+import CheckoutModal from "../CheckoutModal/CheckoutModal";
 import styles from "./BuyButton.module.css";
 
 const BACKEND_URL =
     process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:4000";
+
 export default function BuyButton({ product }) {
   const [loading, setLoading] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const loadRazorpayScript = () => {
     return new Promise((resolve) => {
@@ -21,7 +24,8 @@ export default function BuyButton({ product }) {
     });
   };
 
-  async function handleBuy() {
+  async function handleCheckoutSubmit(buyerData) {
+    setIsModalOpen(false);
     try {
       setLoading(true);
 
@@ -32,25 +36,12 @@ export default function BuyButton({ product }) {
         return;
       }
 
-      const phoneInput = window.prompt(
-        "Enter your bank-linked phone number for UPI payment (10 digits):",
-        ""
-      );
-
-      if (phoneInput === null) {
-        alert("Phone number is required to continue.");
-        return;
-      }
-
-      const contact = phoneInput.replace(/\D/g, "");
-
-      if (!/^\d{10}$/.test(contact)) {
-        alert("Please enter a valid 10-digit phone number.");
-        return;
-      }
+      const useExpress = process.env.NEXT_PUBLIC_USE_EXPRESS === "true";
+      const createOrderUrl = useExpress ? `${BACKEND_URL}/api/create-order` : "/api/razorpay/create-order";
+      const verifyPaymentUrl = useExpress ? `${BACKEND_URL}/api/verify-payment` : "/api/razorpay/verify-payment";
 
       const response = await fetch(
-        `${BACKEND_URL}/api/create-order`,
+        createOrderUrl,
         {
           method: "POST",
           headers: {
@@ -58,7 +49,10 @@ export default function BuyButton({ product }) {
           },
           body: JSON.stringify({
             slug: product.slug,
-            contact,
+            contact: buyerData.contact,
+            name: buyerData.name,
+            email: buyerData.email,
+            whatsapp: buyerData.whatsapp,
           }),
         }
       );
@@ -86,9 +80,9 @@ export default function BuyButton({ product }) {
         },
 
         prefill: {
-          name: "",
-          email: "",
-          contact,
+          name: buyerData.name,
+          email: buyerData.email,
+          contact: buyerData.contact,
         },
 
         modal: {
@@ -100,7 +94,7 @@ export default function BuyButton({ product }) {
         handler: async function (paymentResponse) {
           try {
             const verifyResponse = await fetch(
-              `${BACKEND_URL}/api/verify-payment`,
+              verifyPaymentUrl,
               {
                 method: "POST",
                 headers: {
@@ -109,7 +103,7 @@ export default function BuyButton({ product }) {
                 body: JSON.stringify({
                   ...paymentResponse,
                   slug: product.slug,
-                  contact,
+                  contact: buyerData.contact,
                 }),
               }
             );
@@ -123,7 +117,16 @@ export default function BuyButton({ product }) {
               return;
             }
 
-            window.location.href = `/success?paymentId=${paymentResponse.razorpay_payment_id}&token=${result.token}`;
+            // Redirect using new token map if available
+            let successRedirectUrl = `/success?paymentId=${paymentResponse.razorpay_payment_id}`;
+            if (result.tokens && result.tokens.length > 0) {
+              const tokensStr = result.tokens.map((t) => `${t.slug}:${t.rawToken}`).join(",");
+              successRedirectUrl += `&tokens=${tokensStr}`;
+            } else if (result.token) {
+              successRedirectUrl += `&token=${result.token}`;
+            }
+
+            window.location.href = successRedirectUrl;
           } catch (err) {
             console.error(err);
             alert("Payment verification failed.");
@@ -144,13 +147,22 @@ export default function BuyButton({ product }) {
   }
 
   return (
-    <button
-      className={styles._btn}
-      onClick={handleBuy}
-      disabled={loading}
-      aria-busy={loading}
-    >
-      {loading ? "Loading..." : "Buy Now"}
-    </button>
+    <>
+      <button
+        className={styles._btn}
+        onClick={() => setIsModalOpen(true)}
+        disabled={loading}
+        aria-busy={loading}
+      >
+        {loading ? "Loading..." : "Buy Now"}
+      </button>
+
+      <CheckoutModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onSubmit={handleCheckoutSubmit}
+        totalAmount={product.pricing.salePrice}
+      />
+    </>
   );
 }

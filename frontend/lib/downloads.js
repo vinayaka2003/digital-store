@@ -15,6 +15,7 @@ const DOWNLOADS = Object.freeze({
   "mad-scientist": "YOUR_GOOGLE_DRIVE_FILE_LINK",
   "chatgpt-prompts": "YOUR_CHATGPT_PROMPTS_DOWNLOAD_LINK",
   "luts-pack": "YOUR_LUTS_PACK_DOWNLOAD_LINK",
+  "demo-product": "YOUR_DEMO_PRODUCT_DOWNLOAD_LINK",
 });
 
 /*

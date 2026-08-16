@@ -32,14 +32,14 @@ export default function ProductInfo({ product }) {
     localStorage.setItem("cart_count", totalCount.toString());
     
     window.dispatchEvent(new Event("cart-update"));
-    showToast(`🎉 Added "${product.title}" to cart!`);
+    showToast(`Added "${product.title}" to cart.`);
   };
 
   return (
     <section className={styles.info}>
       {badge && (
         <span className={styles.badge}>
-          ⭐ {badge}
+          {badge}
         </span>
       )}
 
@@ -64,9 +64,9 @@ export default function ProductInfo({ product }) {
       </div>
 
       <div className={styles.features}>
-        <p>✅ Instant Download</p>
-        <p>✅ Secure Razorpay Payment</p>
-        <p>✅ Lifetime Access</p>
+        <p>✓ Instant Download</p>
+        <p>✓ Secure Razorpay Payment</p>
+        <p>✓ Lifetime Access</p>
       </div>
 
       <div className={styles.buttonGroup}>
@@ -79,7 +79,7 @@ export default function ProductInfo({ product }) {
       </div>
 
       <p className={styles.note}>
-        🔒 Secure payment powered by Razorpay
+        Secure payment powered by Razorpay
       </p>
     </section>
   );

@@ -57,6 +57,22 @@ const PRODUCTS = [
     downloadId: "luts-pack",
     seo: { title: "Cinematic LUTs Pack for Creators", description: "", keywords: [] },
   },
+  {
+    slug: "demo-product",
+    type: "demo",
+    status: PRODUCT_STATUS.ACTIVE,
+    featured: true,
+    category: "test-products",
+    title: "1 Rupee Test Demo Product",
+    shortDescription: "A demo product priced at 1 Rupee to test the Razorpay payment integration and instant download flow.",
+    pricing: { salePrice: 1, regularPrice: 10, currency: "INR" },
+    media: { thumbnail: "/images/demo-product/thumbnail.webp", gallery: [] },
+    details: { features: ["1 Rupee Test", "Instant Verification", "Real-time Checkout Test", "Immediate Download Access"], specifications: {} },
+    faq: [],
+    badge: "Demo",
+    downloadId: "demo-product",
+    seo: { title: "1 Rupee Test Demo Product", description: "Demo product for testing payment integration", keywords: ["test", "demo"] },
+  },
 ];
 
 export function getAllProducts() { return [...PRODUCTS]; }

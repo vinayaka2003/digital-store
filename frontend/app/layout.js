@@ -3,6 +3,7 @@ import Navbar from "@/components/Navbar/Navbar";
 import Footer from "@/components/Footer/Footer";
 import ScrollToTop from "@/components/ScrollToTop/ScrollToTop";
 import Script from "next/script";
+import Providers from "@/components/ThemeProvider";
 
 export const metadata = {
   metadataBase: new URL(
@@ -10,40 +11,84 @@ export const metadata = {
   ),
 
   title: {
-    default: "Digital Store",
-    template: "%s | Digital Store",
+    default: "SmartSheetPrint",
+    template: "%s | SmartSheetPrint",
   },
 
   description:
-    "Premium digital bundles for creators. Instant download after secure payment.",
+    "Premium digital templates, printable resources, and instant download products for creators, students, and professionals.",
 
-  applicationName: "Digital Store",
+  applicationName: "SmartSheetPrint",
 
   keywords: [
+    "SmartSheetPrint",
     "digital products",
-    "video bundles",
-    "creator assets",
+    "printables",
     "templates",
     "instant download",
+    "worksheets",
+    "pdf templates",
+    "planner templates",
+    "digital assets",
+    "creator resources",
   ],
 
   authors: [
     {
-      name: "Digital Store",
+      name: "SmartSheetPrint",
     },
   ],
 
-  creator: "Digital Store",
+  creator: "SmartSheetPrint",
 
-  publisher: "Digital Store",
+  publisher: "SmartSheetPrint",
 
   robots: {
     index: true,
     follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+    },
   },
 
   icons: {
     icon: "/favicon.ico",
+    shortcut: "/favicon.ico",
+    apple: "/favicon.ico",
+  },
+
+  openGraph: {
+    title: "SmartSheetPrint",
+    description:
+      "Premium digital templates and printable resources with instant download.",
+
+    url:
+      process.env.NEXT_PUBLIC_SITE_URL ||
+      "https://your-domain.com",
+
+    siteName: "SmartSheetPrint",
+
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "SmartSheetPrint",
+      },
+    ],
+
+    locale: "en_US",
+    type: "website",
+  },
+
+  twitter: {
+    card: "summary_large_image",
+    title: "SmartSheetPrint",
+    description:
+      "Premium digital templates and printable resources.",
+
+    images: ["/og-image.png"],
   },
 };
 
@@ -55,16 +100,19 @@ export const viewport = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" data-scroll-behavior="smooth">
+    <html lang="en" data-scroll-behavior="smooth" suppressHydrationWarning>
       <body>
-        <Navbar />
-        {children}
-        <Footer />
-        <ScrollToTop />
-        <Script
-          src="https://checkout.razorpay.com/v1/checkout.js"
-          strategy="afterInteractive"
-        />
+        <Providers>
+          <Navbar />
+          {children}
+          <Footer />
+          <ScrollToTop />
+
+          <Script
+            src="https://checkout.razorpay.com/v1/checkout.js"
+            strategy="afterInteractive"
+          />
+        </Providers>
       </body>
     </html>
   );

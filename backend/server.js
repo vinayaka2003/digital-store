@@ -5,7 +5,6 @@ import "dotenv/config";
 import createOrderRoute from "./routes/createOrder.js";
 import verifyPaymentRoute from "./routes/verifyPayment.js";
 import downloadRoute from "./routes/download.js";
-import getDownloadRoute from "./routes/getDownload.js";
 
 const app = express();
 const PORT = process.env.PORT || 4000;
@@ -48,7 +47,6 @@ app.get("/health", (req, res) => {
 app.use("/api/create-order", createOrderRoute);
 app.use("/api/verify-payment", verifyPaymentRoute);
 app.use("/api/download", downloadRoute);
-app.use("/api/get-download", getDownloadRoute);
 
 app.listen(PORT, () => {
   console.log(`✅ WaveLabs Backend running on http://localhost:${PORT}`);

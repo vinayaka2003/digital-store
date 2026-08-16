@@ -1,0 +1,73 @@
+.thumbnailWrapper {
+  width: 60px;
+  height: 45px;
+  position: relative;
+  border-radius: 4px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+
+.thumbnail {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.statusBadge {
+  display: inline-flex;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.active {
+  background: rgba(16, 185, 129, 0.1);
+  color: var(--success);
+  border: 1px solid rgba(16, 185, 129, 0.2);
+}
+
+.inactive {
+  background: rgba(239, 68, 68, 0.1);
+  color: var(--danger);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+}
+
+.actionBtn {
+  padding: 6px 12px;
+  border-radius: 30px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--foreground);
+}
+
+.actionBtn:hover {
+  background: var(--card-hover-bg);
+}
+
+.deactivate {
+  border-color: var(--danger);
+  color: var(--danger);
+}
+
+.deactivate:hover {
+  background: var(--danger);
+  color: #fff;
+  border-color: var(--danger);
+}
+
+.activate {
+  border-color: var(--success);
+  color: var(--success);
+}
+
+.activate:hover {
+  background: var(--success);
+  color: #fff;
+  border-color: var(--success);
+}

@@ -124,15 +124,15 @@ router.post("/", async (req, res) => {
     console.log("✅ Order matched");
 
     // Step 8: Product Validation
+    const purchasedSlugsStr = rzpOrder.notes?.purchasedSlugs || "";
+    const purchasedSlugs = purchasedSlugsStr.split(",").map((s) => s.trim()).filter(Boolean);
+
+    console.log("Purchased Slugs from Order:", purchasedSlugs);
+
     if (slug) {
-      const expectedSlug = rzpOrder.notes?.productSlug;
-
-      console.log("Expected Slug :", expectedSlug);
-      console.log("Received Slug :", slug);
-
-      if (expectedSlug && expectedSlug !== slug) {
-        console.log("❌ Product mismatch");
-
+      console.log("Received Slug:", slug);
+      if (!purchasedSlugs.includes(slug)) {
+        console.log("❌ Product slug mismatch");
         return res.status(400).json({
           success: false,
           message: "Product mismatch.",
@@ -141,7 +141,6 @@ router.post("/", async (req, res) => {
 
       if (!getProductBySlug(slug)) {
         console.log("❌ Product not found");
-
         return res.status(404).json({
           success: false,
           message: "Product not found.",
@@ -150,10 +149,18 @@ router.post("/", async (req, res) => {
     }
 
     if (slugs && Array.isArray(slugs)) {
+      console.log("Received Slugs Array:", slugs);
       for (const s of slugs) {
+        if (!purchasedSlugs.includes(s)) {
+          console.log(`❌ Mismatched slug in slugs array: ${s}`);
+          return res.status(400).json({
+            success: false,
+            message: `Product mismatch: ${s} was not part of this checkout.`,
+          });
+        }
+
         if (!getProductBySlug(s)) {
           console.log(`❌ Product ${s} not found`);
-
           return res.status(404).json({
             success: false,
             message: `${s} not found.`,

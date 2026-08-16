@@ -12,8 +12,8 @@
 
 .badge {
   display: inline-block;
-  background: #ffffff;
-  color: #0f1115;
+  background: var(--card-hover-bg);
+  color: var(--foreground);
   padding: 6px 16px;
   border-radius: 999px;
   font-weight: 750;
@@ -134,7 +134,7 @@
   width: 100%;
   max-width: 900px;
   aspect-ratio: 1;
-  background: #000000;
+  background: var(--card-bg);
   border-radius: 16px;
   overflow: hidden;
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);

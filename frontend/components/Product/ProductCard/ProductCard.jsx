@@ -28,7 +28,7 @@ export default function ProductCard({ product }) {
     localStorage.setItem("cart_count", totalCount.toString());
 
     window.dispatchEvent(new Event("cart-update"));
-    showToast(`🎉 Added "${product.title}" to cart!`);
+    showToast(`Added "${product.title}" to cart.`);
   };
 
   return (

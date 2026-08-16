@@ -42,7 +42,7 @@ export default function PreviewGallery() {
                 className={styles.image}
               />
               <div className={styles.hoverOverlay}>
-                <span>🔍 Click to Expand</span>
+                <span>Click to Expand</span>
               </div>
             </div>
           ))}

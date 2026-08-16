@@ -6,7 +6,7 @@ const router = express.Router();
 
 router.post("/", async (req, res) => {
   try {
-    const { slug, items, contact } = req.body;
+    const { slug, items, contact, name, email, whatsapp } = req.body;
     const normalizedContact = typeof contact === "string" ? contact.replace(/\D/g, "") : "";
 
     let totalAmount = 0;
@@ -17,17 +17,25 @@ router.post("/", async (req, res) => {
     if (items && Array.isArray(items) && items.length > 0) {
       // Cart checkout
       for (const item of items) {
+        const qty = Number(item.quantity);
+        if (isNaN(qty) || !Number.isInteger(qty) || qty <= 0) {
+          return res.status(400).json({ success: false, message: `Invalid quantity for product "${item.slug}".` });
+        }
         const product = getProductBySlug(item.slug);
         if (!product) {
           return res.status(404).json({ success: false, message: `Product "${item.slug}" not found.` });
         }
-        totalAmount += product.pricing.salePrice * item.quantity;
+        totalAmount += product.pricing.salePrice * qty;
       }
       receiptId = `receipt_cart_${Date.now()}`;
       notes = {
         checkoutType: "cart",
         itemsSummary: items.map((i) => `${i.slug} x ${i.quantity}`).join(", "),
-        ...(normalizedContact ? { contact: normalizedContact } : {}),
+        purchasedSlugs: items.map((i) => i.slug).join(","),
+        buyerName: name || "",
+        buyerEmail: email || "",
+        buyerPhone: normalizedContact,
+        buyerWhatsapp: whatsapp || "",
       };
       desc = "WaveLabs Cart Purchase";
 
@@ -43,7 +51,11 @@ router.post("/", async (req, res) => {
         checkoutType: "single",
         productSlug: product.slug,
         productTitle: product.title,
-        ...(normalizedContact ? { contact: normalizedContact } : {}),
+        purchasedSlugs: product.slug,
+        buyerName: name || "",
+        buyerEmail: email || "",
+        buyerPhone: normalizedContact,
+        buyerWhatsapp: whatsapp || "",
       };
       desc = product.title;
 

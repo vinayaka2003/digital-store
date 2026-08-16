@@ -1,0 +1,25 @@
+.toggle {
+  width: 42px;
+  height: 42px;
+
+  border: none;
+  border-radius: 50%;
+
+  background: transparent;
+
+  cursor: pointer;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  transition: .25s;
+}
+
+.toggle:hover{
+    background:rgba(0,0,0,.06);
+}
+
+.icon{
+    font-size:20px;
+}
