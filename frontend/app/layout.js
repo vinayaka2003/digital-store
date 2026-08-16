@@ -11,17 +11,17 @@ export const metadata = {
   ),
 
   title: {
-    default: "SmartSheetPrint",
-    template: "%s | SmartSheetPrint",
+    default: "WaveLabs",
+    template: "%s | WaveLabs",
   },
 
   description:
     "Premium digital templates, printable resources, and instant download products for creators, students, and professionals.",
 
-  applicationName: "SmartSheetPrint",
+  applicationName: "WaveLabs",
 
   keywords: [
-    "SmartSheetPrint",
+    "WaveLabs",
     "digital products",
     "printables",
     "templates",
@@ -35,13 +35,13 @@ export const metadata = {
 
   authors: [
     {
-      name: "SmartSheetPrint",
+      name: "WaveLabs",
     },
   ],
 
-  creator: "SmartSheetPrint",
+  creator: "WaveLabs",
 
-  publisher: "SmartSheetPrint",
+  publisher: "WaveLabs",
 
   robots: {
     index: true,
@@ -59,7 +59,7 @@ export const metadata = {
   },
 
   openGraph: {
-    title: "SmartSheetPrint",
+    title: "WaveLabs",
     description:
       "Premium digital templates and printable resources with instant download.",
 
@@ -67,14 +67,14 @@ export const metadata = {
       process.env.NEXT_PUBLIC_SITE_URL ||
       "https://your-domain.com",
 
-    siteName: "SmartSheetPrint",
+    siteName: "WaveLabs",
 
     images: [
       {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "SmartSheetPrint",
+        alt: "WaveLabs",
       },
     ],
 
@@ -84,7 +84,7 @@ export const metadata = {
 
   twitter: {
     card: "summary_large_image",
-    title: "SmartSheetPrint",
+    title: "WaveLabs",
     description:
       "Premium digital templates and printable resources.",
 
